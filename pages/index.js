@@ -23,18 +23,28 @@ const DUMMY_MEETUPS = [
     address: 'Mexico City, Soul Street, 870',
     description: 'Mexico City has a population of 21.80 million (metropolitan area)'
 
-  }
+  } 
 ];
 function HomePage(props) {
   return <MeetupList meetups={props.meetups}/>
 }
-export async function getStaticProps(){
-  // fetch data here
+export async function getServerSideProps(context){
+  const req = context.req;
+  const res = context.res;
   return {
-    props : {
-      meetups : DUMMY_MEETUPS
-    },
-    // revalidate : 10 // to unlock incremental static generation
+    props: {
+      meetups: DUMMY_MEETUPS 
+    }
   }
+
 }
+// export async function getStaticProps(){
+//   // fetch data here
+//   return {
+//     props : {
+//       meetups : DUMMY_MEETUPS
+//     },
+//     // revalidate : 10 // to unlock incremental static generation
+//   }
+// }
 export default HomePage;
