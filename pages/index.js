@@ -28,23 +28,23 @@ const DUMMY_MEETUPS = [
 function HomePage(props) {
   return <MeetupList meetups={props.meetups}/>
 }
-export async function getServerSideProps(context){
-  const req = context.req;
-  const res = context.res;
-  return {
-    props: {
-      meetups: DUMMY_MEETUPS 
-    }
-  }
-
-}
-// export async function getStaticProps(){
-//   // fetch data here
+// export async function getServerSideProps(context){
+//   const req = context.req;
+//   const res = context.res;
 //   return {
-//     props : {
-//       meetups : DUMMY_MEETUPS
-//     },
-//     // revalidate : 10 // to unlock incremental static generation
+//     props: {
+//       meetups: DUMMY_MEETUPS 
+//     }
 //   }
 // }
+
+export async function getStaticProps(){
+  // fetch data here
+  return {
+    props : {
+      meetups : DUMMY_MEETUPS
+    },
+    // revalidate : 10 // to unlock incremental static generation
+  }
+}
 export default HomePage;
