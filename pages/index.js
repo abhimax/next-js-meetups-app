@@ -1,30 +1,31 @@
+import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
-const DUMMY_MEETUPS = [
-  {
-    id: 'm1',
-    title: 'First Meetup',
-    image:'https://worldstrides.com/wp-content/uploads/2015/07/iStock_000040849990_Large.jpg',
-    address: 'New York City, Park Street, 012234',
-    description: 'New York City has a population of 23.58 million (urban area)'
+// const DUMMY_MEETUPS = [
+//   {
+//     id: 'm1',
+//     title: 'First Meetup',
+//     image:'https://worldstrides.com/wp-content/uploads/2015/07/iStock_000040849990_Large.jpg',
+//     address: 'New York City, Park Street, 012234',
+//     description: 'New York City has a population of 23.58 million (urban area)'
 
-  },
-  {
-    id: 'm2',
-    title: 'Second Meetup',
-    image:'https://lp-cms-production.imgix.net/2021-02/Tokyo%20Main.jpg',
-    address: 'Tokyo, DD Street, 3456',
-    description: 'Tokyo has a population of 39 million (urban area)'
+//   },
+//   {
+//     id: 'm2',
+//     title: 'Second Meetup',
+//     image:'https://lp-cms-production.imgix.net/2021-02/Tokyo%20Main.jpg',
+//     address: 'Tokyo, DD Street, 3456',
+//     description: 'Tokyo has a population of 39 million (urban area)'
 
-  },
-  {
-    id: 'm3',
-    title: 'Third Meetup',
-    image:'https://images.skyscrapercenter.com/uploads/MexicoCity_Reforma_2020_(CC__BY)Nan__Palmero210126-050124.jpg',
-    address: 'Mexico City, Soul Street, 870',
-    description: 'Mexico City has a population of 21.80 million (metropolitan area)'
+//   },
+//   {
+//     id: 'm3',
+//     title: 'Third Meetup',
+//     image:'https://images.skyscrapercenter.com/uploads/MexicoCity_Reforma_2020_(CC__BY)Nan__Palmero210126-050124.jpg',
+//     address: 'Mexico City, Soul Street, 870',
+//     description: 'Mexico City has a population of 21.80 million (metropolitan area)'
 
-  } 
-];
+//   } 
+// ];
 function HomePage(props) {
   return <MeetupList meetups={props.meetups}/>
 }
@@ -40,11 +41,21 @@ function HomePage(props) {
 
 export async function getStaticProps(){
   // fetch data here
+        const client = await MongoClient.connect('mongodb+srv://<USER>:<PWD>@clusterabhi.bpxffpl.mongodb.net/meetups?retryWrites=true&w=majority');
+        const db = client.db();
+        const meetupsCollection = db.collection('meetups');
+        const meetups = await meetupsCollection.find().toArray();
+        console.log(meetups);
+        client.close();
   return {
     props : {
-      meetups : DUMMY_MEETUPS
+      meetups : meetups.map( meetup =>({
+        title : meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString()
+      }))
     },
-    // revalidate : 10 // to unlock incremental static generation
   }
 }
 export default HomePage;
