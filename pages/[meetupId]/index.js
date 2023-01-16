@@ -1,3 +1,4 @@
+import { MongoClient } from "mongodb";
 import { Fragment } from "react";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
@@ -12,20 +13,14 @@ function MeetupDetails(props) {
   );
 }
 export async function getStaticPaths(){
+  const client = await MongoClient.connect('mongodb+srv://<USER>:<PWD>@clusterabhi.bpxffpl.mongodb.net/meetups?retryWrites=true&w=majority');
+  const db = client.db();
+  const meetupsCollection = db.collection('meetups');
+  const meetups = await meetupsCollection.find({},{_id: 1}).toArray();
+  console.log('>>>>> IDs',meetups);
   return {
     fallback: false,
-    paths: [
-      {
-        params: {
-          meetupId: 'm1',
-        }
-      },
-      {
-        params: {
-          meetupId: 'm2',
-        }
-      }
-    ]
+    paths: meetups.map(meetup => ({ params: { meetupId: meetup._id.toString() }}))
   }
 }
 export async function getStaticProps(context){
