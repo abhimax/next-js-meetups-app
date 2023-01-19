@@ -1,3 +1,29 @@
+
+#  Next Js - Meetup App
+## Tech Stack
++ Next JS
++ Mongo DB
++ CSS Module
+
+## Meetup App features.
++ Add New Meetups
++ List All added meetups
++ Show details of any selected meetups
+
+
+## Home Screen (Meetup List)
+![EXPENSETRACKER!](readme-res/home.png)
+
+## Meetup Details view
+![EXPENSETRACKER2!](readme-res/meetup-dtl.png)
+
+## Add Meetup view
+![EXPENSETRACKER2!](add-new-meetups.png)
+
+## Mongo DB Cluster
+![EXPENSETRACKER2!](readme-res/mongo-db.png)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
