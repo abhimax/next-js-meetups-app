@@ -18,7 +18,7 @@
 ![EXPENSETRACKER2!](readme-res/meetup-dtl.png)
 
 ## Add Meetup view
-![EXPENSETRACKER2!](add-new-meetups.png)
+![EXPENSETRACKER2!](readme-res/add-new-meetups.png)
 
 ## Mongo DB Cluster
 ![EXPENSETRACKER2!](readme-res/mongo-db.png)
